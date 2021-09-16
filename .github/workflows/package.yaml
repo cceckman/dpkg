@@ -1,0 +1,19 @@
+---
+name: Create Debian packages
+"on":
+  workflow_dispatch: {}
+  release:
+    types: [created, edited]
+jobs:
+  build-packages:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Build
+        run: ./do -xv all
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: "pkg/*.deb"
