@@ -1,0 +1,7 @@
+Package: dpkg-example
+Homepage: https://github.com/cceckman/dpkg
+Section: unknown
+Priority: optional
+Maintainer: Charles Eckman <charles@cceckman.com>
+Description:
+  An example Debian package "control" file.

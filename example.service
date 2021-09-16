@@ -1,0 +1,38 @@
+[Unit]
+Description=Reading List server
+After=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/reading-list -storage ${STATE_DIRECTORY}
+
+CapabilityBoundingSet=
+NoNewPrivileges=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+MemoryDenyWriteExecute=true
+RestrictRealtime=true
+RestrictNamespaces=true
+DeviceAllow=
+PrivateDevices=true
+PrivateUsers=true
+ProtectHome=true
+LockPersonality=true
+
+# Sandboxing:
+DynamicUser=yes
+# Below are automatically set by DynamicUser=yes;
+# but we list them explicitly as well.
+ProtectSystem=strict
+ProtectHome=read-only
+PrivateTmp=yes
+# Provide a persistent directory, even with DynamicUser on.
+# The path is /var/cache/<StateDirectory>.
+StateDirectory=reading-list
+
+# We don't restrict network access; we expect inbound and, ultimately, outbound
+# connections.
+
+[Install]
+WantedBy=multi-user.target
